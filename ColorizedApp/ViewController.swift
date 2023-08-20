@@ -24,27 +24,21 @@ class ViewController: UIViewController {
         
         colorWindow.layer.cornerRadius = 10
         
-        setupGraphColor()
         setupSliders()
-        
+        setupGraphColor()
     }
     
-    @IBAction func redSliderAction() {
-        let sliderValue = round(redSlider.value * 100) / 100
-        redGraph.text = sliderValue.formatted()
+
+    @IBAction func rgbSliderAction(_ sender: UISlider) {
         changeColorView()
-    }
-    
-    @IBAction func greenSliderAction() {
-        let sliderValue = round(greenSlider.value * 100) / 100
-        greenGraph.text = sliderValue.formatted()
-        changeColorView()
-    }
-    
-    @IBAction func blueSliderAction() {
-        let sliderValue = round(blueSlider.value * 100) / 100
-        blueGraph.text = sliderValue.formatted()
-        changeColorView()
+        switch sender {
+        case redSlider:
+            redGraph.text = string(from: redSlider)
+        case greenSlider:
+            greenGraph.text = string(from: greenSlider)
+        default:
+            blueGraph.text = string(from: blueSlider)
+        }
     }
     
 // MARK: Private methods
@@ -70,6 +64,10 @@ class ViewController: UIViewController {
         blueSlider.minimumTrackTintColor = .blue
         blueSlider.minimumValue = 0
         blueSlider.maximumValue = 1
+    }
+    
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
     
 }
